@@ -1,0 +1,13 @@
+# Devstack settings
+
+# Defaults
+# --------
+
+OS_USERNAME=admin
+OS_PASSWORD=abcd1234
+OS_PROJECT_NAME=admin
+OS_USER_DOMAIN_NAME=default
+OS_PROJECT_DOMAIN_NAME=default
+OS_AUTH_URL=http://127.0.0.1:5000/v3
+OS_IDENTITY_API_VERSION=3
+
