@@ -12,53 +12,125 @@
 
 ```
 .
-├── AUTHORS      
-├── ChangeLog    
-├── devicedemo  
-│   ├── api　　　　   
-│   │   ├── app.py      
-│   │   ├── config.py
-│   │   ├── controllers
-│   │   │   ├── __init__.py
-│   │   │   ├── root.py
-│   │   │   └── v1
-│   │   │       ├── controller.py
-│   │   │       ├── devices.py
-│   │   │       └── __init__.py
-│   │   ├── expose.py
-│   │   ├── hooks.py
-│   │   └── __init__.py
-│   ├── cmd
-│   │   ├── api.py
-│   │   └── __init__.py
-│   ├── db
-│   │   ├── api.py
+├── AUTHORS
+├── ChangeLog
+├── Deploy
+│   ├── compose_devicedemo
+│   │   ├── devicedemo_app
+│   │   │   └── Dockerfile
+│   │   ├── docker-compose.yml
+│   │   ├── keystone_newtow
+│   │   │   └── Dockerfile
+│   │   └── mariadb_10.0
+│   │       └── Dockerfile
+│   └── huge_docker
+│       └── keystone
+│           ├── Dockerfile
+│           └── supervisord.conf
+├── LICENSE
+├── README.md
+├── devicedemo
+│   ├── __init__.py
+│   ├── api
 │   │   ├── __init__.py
-│   │   ├── models.py
+│   │   ├── app.py
+│   │   ├── config.py
+│   │   ├── hooks.py
+│   │   ├── middleware.py
+│   │   ├── root.py
+│   │   └── v1
+│   │       ├── __init__.py
+│   │       ├── controllers
+│   │       │   ├── __init__.py
+│   │       │   └── device.py
+│   │       ├── datamodels
+│   │       │   ├── __init__.py
+│   │       │   └── device.py
+│   │       └── types.py
+│   ├── cmd
+│   │   ├── __init__.py
+│   │   ├── api.py
+│   │   └── dbmanage.py
+│   ├── common
+│   │   ├── __init__.py
+│   │   ├── context.py
+│   │   ├── db
+│   │   │   ├── __init__.py
+│   │   │   ├── alembic
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── alembic.ini
+│   │   │   │   ├── env.py
+│   │   │   │   └── migration.py
+│   │   │   └── models.py
+│   │   ├── defaults.py
+│   │   ├── exception.py
+│   │   ├── i18n.py
+│   │   ├── policy.py
+│   │   ├── rpc.py
+│   │   ├── service.py
+│   │   └── utils.py
+│   ├── conf
+│   │   ├── __init__.py
+│   │   └── api.py
+│   ├── db
+│   │   ├── __init__.py
+│   │   ├── api.py
 │   │   └── sqlalchemy
+│   │       ├── __init__.py
 │   │       ├── alembic
+│   │       │   ├── __init__.py
 │   │       │   ├── env.py
-│   │       │   ├── README
 │   │       │   ├── script.py.mako
 │   │       │   └── versions
-│   │       │       ├── e7f6a2fc5d53_create_device_table.py
-│   │       │       └── ff7b0e8f7372_create_user_table.py
-│   │       └── alembic.ini
-│   └── __init__.py
-├── devicedemo.db
+│   │       │       └── e7f6a2fc5d53_create_device_table.py
+│   │       ├── api.py
+│   │       ├── migration.py
+│   │       └── models.py
+│   ├── i18n.py
+│   ├── messaging.py
+│   ├── service.py
+│   ├── tests
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   └── unit
+│   │       ├── __init__.py
+│   │       └── api
+│   │           ├── __init__.py
+│   │           ├── controller
+│   │           │   └── __init__.py
+│   │           └── test_app.py
+│   └── version.py
+├── devstack
+│   ├── devicedemo.sh
+│   ├── plugin.sh
+│   └── settings
 ├── doc
+│   ├── api_design
+│   │   ├── apiBluePrint_usage.md
+│   │   ├── specification.md
+│   │   ├── swagger.yaml
+│   │   └── swagger_usage.md
+│   ├── image
+│   │   └── rest_api.jpg
+│   ├── install
+│   │   ├── install_from_huge_docker.md
+│   │   └── install_from_source.md
+│   ├── source
+│   │   └── app_doc.md
 │   └── your_doc_file.md
 ├── etc
 │   └── devicedemo
-│       └── your_app.conf
-├── LICENSE
-├── README.md
-├── requirement.txt
+│       ├── api_paste.ini
+│       ├── devicedemo.conf
+│       └── policy.json
+├── requirements.txt
 ├── setup.cfg
 ├── setup.py
-├── test_requirements.txt
-└── tools
-    └── your_bash_tools.sh
+├── test-requirements.txt
+├── tools
+│   └── your_bash_tools.sh
+└── tox.ini
+
 ```
 
 1. 项目打包相关文件
