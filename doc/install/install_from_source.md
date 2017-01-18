@@ -125,7 +125,7 @@ root@yumaojun-virtual-machine:~# openstack project list
     而admin项目则是包含OpenStack管理员账号的, 也就是上面KeyStone安装完成后的那个admin账号，我们使用他来
     管理整套OpenStack服务
     
-    因此这里我们需要为devicedemo服务创建服务用户和服务端点
+    因此这里我们需要为devices服务创建服务用户和服务端点
     
 ```
 # 创建service项目
@@ -147,8 +147,8 @@ $ openstack project create --domain default \
 # 第一阶段Devicedemo并没用使用MySQL作为数据库,而是使用sqlite做为数据库，所以这里不用为Devicedemo初始化数据库
 # Demo测试通过后完善时，会添加MySQL作为数据库
 
-# 为Devicedemo服务创建用户: devicedemo
-$ openstack user create --domain default --password-prompt devicedemo
+# 为Devicedemo服务创建用户: devices
+$ openstack user create --domain default --password-prompt devices
 
 User Password:
 Repeat User Password:
@@ -158,16 +158,16 @@ Repeat User Password:
 | domain_id           | default                          |
 | enabled             | True                             |
 | id                  | 3f4e777c4062483ab8d9edd7dff829df |
-| name                | devicedemo                       |
+| name                | devices                       |
 | password_expires_at | None                             |
 +---------------------+----------------------------------+
 
-# 将devicedemo用户加入到service项目的管理员中
-$ openstack role add --project service --user devicedemo admin
+# 将devices用户加入到service项目的管理员中
+$ openstack role add --project service --user devices admin
 
-# 创建devicedemo服务
-$ openstack service create --name devicedemo \
-  --description "OpenStack Devicedemo" devicedemo
+# 创建devices服务
+$ openstack service create --name devices \
+  --description "OpenStack Devicedemo" devices
 
 +-------------+----------------------------------+
 | Field       | Value                            |
@@ -175,13 +175,13 @@ $ openstack service create --name devicedemo \
 | description | OpenStack Devicedemo             |
 | enabled     | True                             |
 | id          | 8c2c7f1b9b5049ea9e63757b5533e6d2 |
-| name        | devicedemo                       |
-| type        | devicedemo                       |
+| name        | devices                       |
+| type        | devices                       |
 +-------------+----------------------------------+
 
-# 为devicedemo服务创建端点（我devicedemo的服务端口为9511）
+# 为devices服务创建端点（我devices的服务端口为9511）
 $ openstack endpoint create --region RegionOne \
-  devicedemo public http://127.0.0.1:9511
+  devices public http://127.0.0.1:9511
 
 +--------------+----------------------------------+
 | Field        | Value                            |
@@ -192,13 +192,13 @@ $ openstack endpoint create --region RegionOne \
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
 | service_id   | 8c2c7f1b9b5049ea9e63757b5533e6d2 |
-| service_name | devicedemo                       |
-| service_type | devicedemo                       |
+| service_name | devices                       |
+| service_type | devices                       |
 | url          | http://127.0.0.1:9511            |
 +--------------+----------------------------------+
 
 $ openstack endpoint create --region RegionOne \
-  devicedemo internal http://127.0.0.1:9511
+  devices internal http://127.0.0.1:9511
 
 +--------------+----------------------------------+
 | Field        | Value                            |
@@ -209,13 +209,13 @@ $ openstack endpoint create --region RegionOne \
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
 | service_id   | 8c2c7f1b9b5049ea9e63757b5533e6d2 |
-| service_name | devicedemo                       |
-| service_type | devicedemo                       |
+| service_name | devices                       |
+| service_type | devices                       |
 | url          | http://127.0.0.1:9511            |
 +--------------+----------------------------------+
 
 $ openstack endpoint create --region RegionOne \
-  devicedemo admin http://127.0.0.1:9511
+  devices admin http://127.0.0.1:9511
 
 +--------------+----------------------------------+
 | Field        | Value                            |
@@ -226,8 +226,8 @@ $ openstack endpoint create --region RegionOne \
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
 | service_id   | 8c2c7f1b9b5049ea9e63757b5533e6d2 |
-| service_name | devicedemo                       |
-| service_type | devicedemo                       |
+| service_name | devices                       |
+| service_type | devices                       |
 | url          | http://127.0.0.1:9511            |
 +--------------+----------------------------------+
 ```
@@ -235,11 +235,11 @@ $ openstack endpoint create --region RegionOne \
 
 - 配置Devicedemo并运行
 
-    准备好的KeyStone, 也将devicedemo注册到的KeyStone中, 剩下的就是配置Devicedemo使用KeyStone并且启动服务
+    准备好的KeyStone, 也将devices注册到的KeyStone中, 剩下的就是配置Devicedemo使用KeyStone并且启动服务
     
 ```
-# 配置devicedemo的Keystone相关服务账号, 上面为Devicedemo服务申请的账号是 devicedemo/password
-# 修改devicedemo项目下面的 etc/devicedemo/devicedemo.conf为
+# 配置devices的Keystone相关服务账号, 上面为Devicedemo服务申请的账号是 devices/password
+# 修改devices项目下面的 etc/devices/devices.conf为
 [keystone_authtoken]
 auth_uri = http://127.0.0.1:5000
 auth_url = http://127.0.0.1:35357
@@ -248,16 +248,16 @@ auth_type = password
 project_domain_name = default
 user_domain_name = default
 project_name = service
-username = devicedemo
+username = devices
 password = password
 
 [paste_deploy]
 flavor = keystone
 
-# 在devicedemo项目下 启动服务
- yumaojun@yumaojun-virtual-machine  ~/PycharmProjects/devicedemo   master ●✚  PYTHONPATH=. python3 devicedemo/cmd/api.py --config-dir etc/devicedemo
+# 在devices项目下 启动服务
+ yumaojun@yumaojun-virtual-machine  ~/PycharmProjects/devices   master ●✚  PYTHONPATH=. python3 devices/cmd/api.py --config-dir etc/devices
 2016-12-01 10:59:40.617 78288 WARNING oslo_reports.guru_meditation_report [-] Guru meditation now registers SIGUSR1 and SIGUSR2 by default for backward compatibility. SIGUSR1 will no longer be registered in a future release, so please use SIGUSR2 to generate reports.
-2016-12-01 10:59:40.618 78288 INFO devicedemo.api.app [-] Full WSGI config used: /home/yumaojun/PycharmProjects/devicedemo/etc/devicedemo/api-paste.ini
+2016-12-01 10:59:40.618 78288 INFO devices.api.app [-] Full WSGI config used: /home/yumaojun/PycharmProjects/devices/etc/devices/api-paste.ini
 2016-12-01 10:59:40.727 78288 INFO __main__ [-] Starting server in PID 78288
 2016-12-01 10:59:40.733 78288 INFO __main__ [-] Serving on http://0.0.0.0:9511
 2016-12-01 10:59:40.738 78288 INFO werkzeug [-]  * Running on http://0.0.0.0:9511/ (Press CTRL+C to quit)
@@ -273,7 +273,7 @@ flavor = keystone
 
 ### Demo测试样例
 
-- 像Keystone申请token, 用于访问devicedemo服务
+- 像Keystone申请token, 用于访问devices服务
 
 ```
 RAW_TOKEN=`curl -s -X POST http://127.0.0.1:5000/v2.0/tokens -H "Content-Type: application/json"  -d '{"auth": {"tenantName": "'"admin"'", "passwordCredentials":{"username": "'"admin"'", "password": "'"ADMIN_PASS"'"}}}'`

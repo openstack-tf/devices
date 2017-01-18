@@ -18,12 +18,12 @@ RUN echo "ServerName controller" >> /etc/apache2/apache2.conf \
     && service rabbitmq-server start \
     && service apache2 start \
     && openstack project create --domain default --description "Service Project" service \
-    && openstack user create --domain default --password password devicedemo \
-    && openstack role add --project service --user devicedemo admin \
-    && openstack service create --name devicedemo --description "OpenStack Devicedemo" devicedemo \
-    && openstack endpoint create --region RegionOne devicedemo public http://192.168.21.139:9511 \
-    && openstack endpoint create --region RegionOne devicedemo internal http://192.168.21.139:9511 \
-    && openstack endpoint create --region RegionOne devicedemo admin http://192.168.21.139:9511 \
+    && openstack user create --domain default --password password devices \
+    && openstack role add --project service --user devices admin \
+    && openstack service create --name devices --description "OpenStack Devicedemo" devices \
+    && openstack endpoint create --region RegionOne devices public http://192.168.21.139:9511 \
+    && openstack endpoint create --region RegionOne devices internal http://192.168.21.139:9511 \
+    && openstack endpoint create --region RegionOne devices admin http://192.168.21.139:9511 \
     && apt-get install -y supervisor
 
 EXPOSE 35357 5000

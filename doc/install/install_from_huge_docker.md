@@ -16,25 +16,25 @@
 
 - 创建合适的Keystone服务
 
-  + 修改Dockerfile（devicedemo/Deploy/huge_docker/keystone/Dockerfile)中FROM部分为你 当前镜像
+  + 修改Dockerfile（devices/Deploy/huge_docker/keystone/Dockerfile)中FROM部分为你 当前镜像
     
   > 比如你获取的镜像为： 192.168.1.105:5000/keystone:newton, Dockefile中FROM哪行就需要修改成
   FROM 192.168.1.105:5000/keystone:newton
   
-  + 修改devicedemo服务地址
+  + 修改devices服务地址
     
-  > Keystone的build的过程中会注册devicedemo到keystone服务里面，
-   因此这里你需要手动修改 devicedemo的服务地址，与你本地的服务对应,
-   比如 替换 Dockefile中 192.168.21.139:9511 为你devicedemo真正的地址。
+  > Keystone的build的过程中会注册devices到keystone服务里面，
+   因此这里你需要手动修改 devices的服务地址，与你本地的服务对应,
+   比如 替换 Dockefile中 192.168.21.139:9511 为你devices真正的地址。
     
   + build Keystone服务镜像
   
-  > 进入到build keystone 的目录： devicedemo/Deploy/huge_docker/keystone
+  > 进入到build keystone 的目录： devices/Deploy/huge_docker/keystone
     
 ```
 maojun@maojun-mbp# pwd
-/Users/maojun/PycharmProjects/devicedemo/Deploy/huge_docker/keystone
-maojun@maojun-mbp# docker build -t keystone:newton_devicedemo .
+/Users/maojun/PycharmProjects/devices/Deploy/huge_docker/keystone
+maojun@maojun-mbp# docker build -t keystone:newton_devices .
 Sending build context to Docker daemon  5.12 kB
 Step 1 : FROM keystone:newton
  ---> 6ef614e0ce71
@@ -49,7 +49,7 @@ Removing intermediate container 86aebba59590
 Step 4 : COPY supervisord.conf /etc/supervisord.conf
  ---> 4ccf1b52b31c
 Removing intermediate container fc597f6ad1a8
-Step 5 : RUN echo "ServerName controller" >> /etc/apache2/apache2.conf     && mkdir -p /var/log/supervisor     && service mysql start     && service rabbitmq-server start     && service apache2 start     && openstack project create --domain default --description "Service Project" service     && openstack user create --domain default --password password devicedemo     && openstack role add --project service --user devicedemo admin     && openstack service create --name devicedemo --description "OpenStack Devicedemo" devicedemo     && openstack endpoint create --region RegionOne devicedemo public http://192.168.21.139:9511     && openstack endpoint create --region RegionOne devicedemo internal http://192.168.21.139:9511     && openstack endpoint create --region RegionOne devicedemo admin http://192.168.21.139:9511     && apt-get install -y supervisor
+Step 5 : RUN echo "ServerName controller" >> /etc/apache2/apache2.conf     && mkdir -p /var/log/supervisor     && service mysql start     && service rabbitmq-server start     && service apache2 start     && openstack project create --domain default --description "Service Project" service     && openstack user create --domain default --password password devices     && openstack role add --project service --user devices admin     && openstack service create --name devices --description "OpenStack Devicedemo" devices     && openstack endpoint create --region RegionOne devices public http://192.168.21.139:9511     && openstack endpoint create --region RegionOne devices internal http://192.168.21.139:9511     && openstack endpoint create --region RegionOne devices admin http://192.168.21.139:9511     && apt-get install -y supervisor
  ---> Running in 15a92cf50487
  * Starting MariaDB database server mysqld
    ...done.
@@ -74,7 +74,7 @@ Step 5 : RUN echo "ServerName controller" >> /etc/apache2/apache2.conf     && mk
 | domain_id           | default                          |
 | enabled             | True                             |
 | id                  | 69e08609ba4546a59438dadc77ec0934 |
-| name                | devicedemo                       |
+| name                | devices                       |
 | password_expires_at | None                             |
 +---------------------+----------------------------------+
 +-------------+----------------------------------+
@@ -83,8 +83,8 @@ Step 5 : RUN echo "ServerName controller" >> /etc/apache2/apache2.conf     && mk
 | description | OpenStack Devicedemo             |
 | enabled     | True                             |
 | id          | 6bb07002037041a7a718d7124ebb9080 |
-| name        | devicedemo                       |
-| type        | devicedemo                       |
+| name        | devices                       |
+| type        | devices                       |
 +-------------+----------------------------------+
 +--------------+----------------------------------+
 | Field        | Value                            |
@@ -95,8 +95,8 @@ Step 5 : RUN echo "ServerName controller" >> /etc/apache2/apache2.conf     && mk
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
 | service_id   | 6bb07002037041a7a718d7124ebb9080 |
-| service_name | devicedemo                       |
-| service_type | devicedemo                       |
+| service_name | devices                       |
+| service_type | devices                       |
 | url          | http://192.168.21.139:9511       |
 +--------------+----------------------------------+
 +--------------+----------------------------------+
@@ -108,8 +108,8 @@ Step 5 : RUN echo "ServerName controller" >> /etc/apache2/apache2.conf     && mk
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
 | service_id   | 6bb07002037041a7a718d7124ebb9080 |
-| service_name | devicedemo                       |
-| service_type | devicedemo                       |
+| service_name | devices                       |
+| service_type | devices                       |
 | url          | http://192.168.21.139:9511       |
 +--------------+----------------------------------+
 +--------------+----------------------------------+
@@ -121,8 +121,8 @@ Step 5 : RUN echo "ServerName controller" >> /etc/apache2/apache2.conf     && mk
 | region       | RegionOne                        |
 | region_id    | RegionOne                        |
 | service_id   | 6bb07002037041a7a718d7124ebb9080 |
-| service_name | devicedemo                       |
-| service_type | devicedemo                       |
+| service_name | devices                       |
+| service_type | devices                       |
 | url          | http://192.168.21.139:9511       |
 +--------------+----------------------------------+
 Reading package lists...
@@ -174,6 +174,6 @@ Successfully built bd1bea7a3d34
 
 ```
 
-### devicedemo服务的启动
+### devices服务的启动
 
   这部分和 源码安装相同

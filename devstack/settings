@@ -1,13 +1,33 @@
-# Devstack settings
+# turn on the Devicedemo services by default
+enable_service devices-api
 
 # Defaults
-# --------
+# Set up default directories
+# --------------------------
 
-OS_USERNAME=admin
-OS_PASSWORD=abcd1234
-OS_PROJECT_NAME=admin
-OS_USER_DOMAIN_NAME=default
-OS_PROJECT_DOMAIN_NAME=default
-OS_AUTH_URL=http://127.0.0.1:5000/v3
-OS_IDENTITY_API_VERSION=3
+DEVICEDEMO_DIR=$DEST/devices
+DEVICEDEMO_CONF_DIR=/etc/devices
+DEVICEDEMO_CONF=$DEVICEDEMO_CONF_DIR/devices.conf
+DEVICEDEMO_API_LOG_DIR=/var/log/devices
+DEVICEDEMO_AUTH_CACHE_DIR=${DEVICEDEMO_AUTH_CACHE_DIR:-/var/cache/devices}
+DEVICEDEMO_DATA_DIR=${DEVICEDEMO_DATA_DIR:-/var/lib/devices}
 
+# Set up database backend
+DEVICEDEMO_BACKEND=${DEVICEDEMO_BACKEND:-sqlite}
+
+# Set devices repository
+DEVICEDEMO_REPO=${DEVICEDEMO_REPO:-https://github.com/openstack-tf/devices}
+DEVICEDEMO_BRANCH=${DEVICEDEMO_BRANCH:-master}
+
+# Set Devicedemo connection info
+DEVICEDEMO_SERVICE_HOST=${DEVICEDEMO_SERVICE_HOST:-$SERVICE_HOST}
+DEVICEDEMO_SERVICE_PORT=${DEVICEDEMO_SERVICE_PORT:-9009}
+DEVICEDEMO_SERVICE_PROTOCOL=${DEVICEDEMO_SERVICE_PROTOCOL:-$SERVICE_PROTOCOL}
+
+# Set Devicedemo client info
+GITREPO["python-devicesclient"]=${DEVICEDEMOCLIENT_REPO:-https://github.com/yumaojun03/python-devices.git}
+GITDIR["python-devicesclient"]=$DEST/python-devicesclient
+GITBRANCH["python-devicesclient"]=${DEVICEDEMOCLIENT_BRANCH:-master}
+
+# Tell Tempest this project is present
+TEMPEST_SERVICES+=,devices

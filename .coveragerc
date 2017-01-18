@@ -1,7 +1,7 @@
 [run]
 branch = True
-source = devicedemo
-omit = devicedemo/tests/*
+source = devices
+omit = devices/tests/*
 
 [report]
 ignore_errors = True
