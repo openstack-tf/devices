@@ -1,4 +1,4 @@
-# devicedemo
+# 
 
 一个基于Openstack规范开发的API Demo
 
@@ -15,8 +15,8 @@
 ├── AUTHORS
 ├── ChangeLog
 ├── Deploy
-│   ├── compose_devicedemo
-│   │   ├── devicedemo_app
+│   ├── compose_
+│   │   ├── _app
 │   │   │   └── Dockerfile
 │   │   ├── docker-compose.yml
 │   │   ├── keystone_newtow
@@ -29,7 +29,7 @@
 │           └── supervisord.conf
 ├── LICENSE
 ├── README.md
-├── devicedemo
+├── 
 │   ├── __init__.py
 │   ├── api
 │   │   ├── __init__.py
@@ -101,7 +101,7 @@
 │   │           └── test_app.py
 │   └── version.py
 ├── devstack
-│   ├── devicedemo.sh
+│   ├── .sh
 │   ├── plugin.sh
 │   └── settings
 ├── doc
@@ -119,9 +119,9 @@
 │   │   └── app_doc.md
 │   └── your_doc_file.md
 ├── etc
-│   └── devicedemo
+│   └── 
 │       ├── api_paste.ini
-│       ├── devicedemo.conf
+│       ├── .conf
 │       └── policy.json
 ├── requirements.txt
 ├── setup.cfg
@@ -147,7 +147,7 @@
 
 2. 项目配置文件目录
 
-    etc/devicedemo：　devicedemo项目需要的配置文件
+    etc/：　device项目需要的配置文件
 
 3. 项目说明文档目录
 
